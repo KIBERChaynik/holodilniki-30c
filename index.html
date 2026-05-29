@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Холодильники -30°С — Ремонт техники в Одинцово</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#050a12;
+            --bg-card:#0c1420;
+            --bg-card-h:#111d2e;
+            --accent:#00b4d8;
+            --accent-h:#0096c7;
+            --accent-glow:rgba(0,180,216,.12);
+            --accent-border:rgba(0,180,216,.2);
+            --gold:#f59e0b;
+            --green:#22c55e;
+            --text:#e8f0f8;
+            --text-s:#8899aa;
+            --text-m:#5a6a7a;
+            --border:#152030;
+            --border-l:#1e3044;
+            --font-body:'Inter',sans-serif;
+            --font-display:'Playfair Display',serif;
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+        ::-webkit-scrollbar{width:6px}
+        ::-webkit-scrollbar-track{background:var(--bg)}
+        ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+        /* NAV */
+        .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 1.5rem;transition:all .3s}
+        .nav.scrolled{background:rgba(5,10,18,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:.7rem 1.5rem}
+        .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+        .nav-logo{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--text);text-decoration:none}
+        .nav-logo em{font-style:normal;color:var(--accent)}
+        .nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
+        .nav-links a{color:var(--text-s);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .3s}
+        .nav-links a:hover{color:var(--text)}
+        .nav-phone{color:var(--accent)!important;font-weight:600!important}
+        .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+        .burger span{width:24px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+        .burger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+        .burger.active span:nth-child(2){opacity:0}
+        .burger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+        .mobile-menu{display:none;position:fixed;inset:0;background:rgba(5,10,18,.98);backdrop-filter:blur(20px);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;transition:opacity .3s}
+        .mobile-menu.active{display:flex;opacity:1}
+        .mobile-menu a{color:var(--text);text-decoration:none;font-size:1.6rem;font-weight:600;transition:color .3s}
+        .mobile-menu a:hover{color:var(--accent)}
+
+        /* HERO */
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+        .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(0,180,216,.06) 0%,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(0,78,133,.08) 0%,transparent 50%)}
+        .hero-frost{position:absolute;inset:0;background-image:
+            linear-gradient(rgba(0,180,216,.03) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(0,180,216,.03) 1px,transparent 1px);
+            background-size:80px 80px}
+        .hero-content{position:relative;z-index:2;text-align:center;padding:2rem;max-width:850px}
+        .hero-temp{
+            display:inline-flex;align-items:center;gap:.6rem;
+            background:var(--accent-glow);border:1px solid var(--accent-border);
+            border-radius:50px;padding:.45rem 1.2rem;font-size:.8rem;font-weight:700;
+            color:var(--accent);margin-bottom:2rem;letter-spacing:.06em;text-transform:uppercase;
+            animation:fadeUp .8s ease-out
+        }
+        .hero-temp svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+        .hero-title{font-family:var(--font-display);font-size:clamp(2.8rem,7vw,5.5rem);font-weight:700;line-height:1;margin-bottom:1.5rem;animation:fadeUp .8s ease-out .15s both}
+        .hero-title .deg{color:var(--accent)}
+        .hero-sub{font-size:1.1rem;color:var(--text-s);max-width:580px;margin:0 auto 2.5rem;font-weight:300;line-height:1.7;animation:fadeUp .8s ease-out .3s both}
+        .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s ease-out .45s both}
+        .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;font-family:var(--font-body);font-size:.9rem;font-weight:600;text-decoration:none;border-radius:6px;border:none;cursor:pointer;transition:all .3s;letter-spacing:.03em}
+        .btn-p{background:var(--accent);color:#fff}
+        .btn-p:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,180,216,.3)}
+        .btn-o{background:transparent;color:var(--text);border:1px solid var(--border-l)}
+        .btn-o:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+        .hero-badge-row{margin-top:3rem;display:flex;align-items:center;justify-content:center;gap:1.5rem;animation:fadeUp .8s ease-out .6s both}
+        .stars{display:flex;gap:3px}
+        .stars svg{width:18px;height:18px;fill:var(--gold)}
+        .hero-badge-text{color:var(--text-s);font-size:.9rem}
+        .hero-badge-text strong{color:var(--text);font-size:1.05rem}
+        .scroll-ind{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;animation:floatB 2s infinite}
+        .scroll-ind svg{width:22px;height:22px;stroke:var(--text-m)}
+        @keyframes floatB{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+
+        /* SECTIONS */
+        .section{padding:5rem 1.5rem;max-width:1200px;margin:0 auto}
+        .s-label{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem}
+        .s-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;margin-bottom:1rem}
+        .s-desc{color:var(--text-s);max-width:550px;font-size:1rem;line-height:1.7}
+        .s-header{text-align:center;margin-bottom:3.5rem}
+        .s-header .s-desc{margin:0 auto}
+
+        /* ABOUT */
+        .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+        .about-text h3{font-family:var(--font-display);font-size:1.6rem;margin-bottom:1rem}
+        .about-text p{color:var(--text-s);line-height:1.8;margin-bottom:1.5rem}
+        .features{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+        .feat{display:flex;align-items:flex-start;gap:.7rem}
+        .feat-icon{width:36px;height:36px;min-width:36px;background:var(--accent-glow);border:1px solid var(--accent-border);border-radius:8px;display:flex;align-items:center;justify-content:center}
+        .feat-icon svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2}
+        .feat-text{font-size:.9rem;font-weight:500}
+        .feat-text small{display:block;color:var(--text-m);font-weight:400;font-size:.8rem;margin-top:.15rem}
+        .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        .a-stat{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;text-align:center;transition:all .3s}
+        .a-stat:hover{border-color:var(--border-l);transform:translateY(-4px)}
+        .a-stat-num{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:.5rem}
+        .a-stat-label{color:var(--text-m);font-size:.85rem}
+
+        /* SERVICES */
+        .services-bg{background:var(--bg)}
+        .srv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+        .srv-card{
+            background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:2rem;
+            transition:all .4s cubic-bezier(.25,.46,.45,.94);cursor:pointer;position:relative;overflow:hidden
+        }
+        .srv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#48cae4);opacity:0;transition:opacity .3s}
+        .srv-card:hover::before{opacity:1}
+        .srv-card:hover{border-color:var(--border-l);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+        .srv-icon{
+            width:52px;height:52px;background:var(--accent-glow);border:1px solid var(--accent-border);
+            border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem
+        }
+        .srv-icon svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.5}
+        .srv-card h3{font-size:1.15rem;font-weight:700;margin-bottom:.6rem}
+        .srv-card p{color:var(--text-s);font-size:.88rem;line-height:1.6;margin-bottom:1.2rem}
+        .srv-footer{display:flex;align-items:center;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--border)}
+        .srv-price{font-size:1.4rem;font-weight:800;color:var(--accent)}
+        .srv-price small{font-size:.75rem;font-weight:400;color:var(--text-m);margin-left:.3rem}
+        .srv-badge{font-size:.75rem;color:var(--accent);background:var(--accent-glow);border:1px solid var(--accent-border);padding:.25rem .65rem;border-radius:50px}
+
+        /* GALLERY */
+        .gallery-bg{background:var(--bg)}
+        .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,220px);gap:.8rem}
+        .gallery-item{position:relative;border-radius:10px;overflow:hidden;cursor:pointer}
+        .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1}
+        .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+        .gallery-item:hover img{transform:scale(1.06)}
+        .gallery-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(5,10,18,.5) 100%);opacity:0;transition:opacity .3s}
+        .gallery-item:hover::after{opacity:1}
+        .g-zoom{position:absolute;bottom:.8rem;right:.8rem;z-index:2;width:36px;height:36px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:all .3s}
+        .gallery-item:hover .g-zoom{opacity:1;transform:translateY(0)}
+        .g-zoom svg{width:16px;height:16px;stroke:#fff}
+
+        /* LIGHTBOX */
+        .lightbox{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .3s}
+        .lightbox.active{display:flex;opacity:1}
+        .lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px}
+        .lb-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.1);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s}
+        .lb-close:hover{background:rgba(255,255,255,.2)}
+        .lb-close svg{width:22px;height:22px;stroke:#fff}
+
+        /* REVIEWS */
+        .reviews-bg{background:var(--bg)}
+        .rev-summary{display:flex;align-items:center;justify-content:center;gap:3rem;margin-bottom:3rem;flex-wrap:wrap}
+        .rev-score{text-align:center}
+        .rev-num{font-family:var(--font-display);font-size:3.5rem;font-weight:700;color:var(--gold);line-height:1}
+        .rev-stars{display:flex;gap:2px;justify-content:center;margin-top:.4rem}
+        .rev-stars svg{width:16px;height:16px;fill:var(--gold)}
+        .rev-count{color:var(--text-m);font-size:.85rem;margin-top:.3rem}
+        .rev-divider{width:1px;height:70px;background:var(--border)}
+        .rev-bars{display:flex;flex-direction:column;gap:.4rem}
+        .rev-bar-row{display:flex;align-items:center;gap:.8rem}
+        .rev-bar-label{font-size:.8rem;color:var(--text-m);min-width:40px}
+        .rev-bar-track{width:140px;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+        .rev-bar-fill{height:100%;background:var(--gold);border-radius:3px}
+        .rev-bar-count{font-size:.8rem;color:var(--text-s);min-width:20px}
+        .rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+        .rev-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;transition:all .3s}
+        .rev-card:hover{border-color:var(--border-l);transform:translateY(-3px)}
+        .rev-h{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:1rem}
+        .rev-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;color:#fff;flex-shrink:0}
+        .rev-info{flex:1}
+        .rev-name{font-weight:600;font-size:.95rem}
+        .rev-level{font-size:.75rem;color:var(--gold);margin-top:.15rem}
+        .rev-date{font-size:.75rem;color:var(--text-m);margin-top:.15rem}
+        .rev-stars-s{display:flex;gap:2px;margin-bottom:.8rem}
+        .rev-stars-s svg{width:14px;height:14px;fill:var(--gold)}
+        .rev-text{color:var(--text-s);font-size:.9rem;line-height:1.7}
+
+        /* CONTACT */
+        .contact-bg{background:var(--bg)}
+        .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+        .c-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:2rem}
+        .c-icon{width:44px;height:44px;background:var(--accent-glow);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem}
+        .c-icon svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:2}
+        .c-card h3{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.8rem}
+        .c-card p{color:var(--text-s);line-height:1.7}
+        .c-card a{color:var(--accent);text-decoration:none;font-weight:600;transition:color .3s}
+        .c-card a:hover{color:#48cae4}
+        .sched-table{width:100%;border-collapse:collapse}
+        .sched-table tr{border-bottom:1px solid var(--border)}
+        .sched-table tr:last-child{border-bottom:none}
+        .sched-table td{padding:.5rem 0;font-size:.88rem}
+        .sched-table td:first-child{color:var(--text-s)}
+        .sched-table td:last-child{text-align:right;font-weight:500}
+        .sched-table tr.today td{color:var(--accent);font-weight:600}
+        .sched-status{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .9rem;border-radius:50px;font-size:.8rem;font-weight:600;margin-bottom:1.2rem}
+        .sched-status.open{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:var(--green)}
+        .s-dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+        /* CTA */
+        .cta-section{padding:5rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+        .cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,180,216,.08) 0%,transparent 70%)}
+        .cta-c{position:relative;z-index:2;max-width:600px;margin:0 auto}
+        .cta-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:1rem}
+        .cta-desc{color:var(--text-s);margin-bottom:2rem;line-height:1.7}
+
+        /* FOOTER */
+        .footer{border-top:1px solid var(--border);padding:2rem 1.5rem}
+        .footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+        .footer-logo{font-family:var(--font-display);font-size:1.3rem;font-weight:700}
+        .footer-logo em{font-style:normal;color:var(--accent)}
+        .footer-copy{color:var(--text-m);font-size:.8rem}
+        .footer-links{display:flex;gap:1.5rem}
+        .footer-links a{color:var(--text-s);text-decoration:none;font-size:.8rem;transition:color .3s}
+        .footer-links a:hover{color:var(--text)}
+
+        /* REVEAL */
+        .reveal{opacity:0;transform:translateY(35px);transition:all .7s cubic-bezier(.25,.46,.45,.94)}
+        .reveal.visible{opacity:1;transform:translateY(0)}
+        .r1{transition-delay:.1s}.r2{transition-delay:.2s}.r3{transition-delay:.3s}.r4{transition-delay:.4s}
+
+        @media(max-width:768px){
+            .nav-links{display:none}
+            .burger{display:flex}
+            .about-grid{grid-template-columns:1fr}
+            .contact-grid{grid-template-columns:1fr}
+            .features{grid-template-columns:1fr}
+            .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,180px)}
+            .gallery-item:nth-child(1){grid-column:span 2}
+            .rev-summary{flex-direction:column;gap:1.5rem}
+            .rev-divider{width:50px;height:1px}
+            .rev-grid{grid-template-columns:1fr}
+            .footer-inner{flex-direction:column;text-align:center}
+            .srv-grid{grid-template-columns:1fr}
+        }
+        @media(max-width:480px){
+            .about-stats{grid-template-columns:1fr 1fr}
+            .gallery-grid{grid-template-columns:1fr;grid-template-rows:repeat(6,200px)}
+            .gallery-item:nth-child(1){grid-column:span 1}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">Холодильники <em>-30°С</em></a>
+            <ul class="nav-links">
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#gallery">Фото</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
+                <li><a href="#contact">Контакты</a></li>
+                <li><a href="tel:+79683780238" class="nav-phone">+7 (968) 378-02-38</a></li>
+            </ul>
+            <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMobile()">О нас</a>
+        <a href="#services" onclick="closeMobile()">Услуги</a>
+        <a href="#gallery" onclick="closeMobile()">Фото</a>
+        <a href="#reviews" onclick="closeMobile()">Отзывы</a>
+        <a href="#contact" onclick="closeMobile()">Контакты</a>
+        <a href="tel:+79683780238" style="color:var(--accent)">+7 (968) 378-02-38</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-frost"></div>
+        <div class="hero-content">
+            <div class="hero-temp">
+                <svg viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/></svg>
+                Ремонт 24/7 — Выезд во все районы
+            </div>
+            <h1 class="hero-title">Холодильники <span class="deg">-30°С</span></h1>
+            <p class="hero-sub">
+                Ремонт промышленных холодильников, кофемашин и&nbsp;бытовой техники. 
+                Работаем круглосуточно — выезжаем в&nbsp;день обращения. Гарантия на&nbsp;все виды работ.
+            </p>
+            <div class="hero-btns">
+                <a href="tel:+79683780238" class="btn btn-p">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.11 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                    Вызвать мастера
+                </a>
+                <a href="#services" class="btn btn-o">Наши услуги</a>
+            </div>
+            <div class="hero-badge-row">
+                <div class="stars">
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <span class="hero-badge-text"><strong>5.0</strong> · 86 оценок</span>
+            </div>
+        </div>
+        <div class="scroll-ind">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section">
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <span class="s-label">О сервисе</span>
+                    <h3>Профессиональный ремонт с гарантией</h3>
+                    <p>
+                        Сервисный центр «Холодильники -30°С» — это команда опытных мастеров, которые ремонтируют 
+                        промышленные холодильники, кофемашины и&nbsp;бытовую технику любой сложности. 
+                        Мы&nbsp;работаем круглосуточно и&nbsp;выезжаем во&nbsp;все районы.
+                    </p>
+                    <div class="features">
+                        <div class="feat">
+                            <div class="feat-icon">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            </div>
+                            <div class="feat-text">
+                                Круглосуточно
+                                <small>Работаем 24/7 без выходных</small>
+                            </div>
+                        </div>
+                        <div class="feat">
+                            <div class="feat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                            </div>
+                            <div class="feat-text">
+                                Официальная гарантия
+                                <small>На все виды работ</small>
+                            </div>
+                        </div>
+                        <div class="feat">
+                            <div class="feat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            </div>
+                            <div class="feat-text">
+                                Быстрый выезд
+                                <small>Приедем в день обращения</small>
+                            </div>
+                        </div>
+                        <div class="feat">
+                            <div class="feat-icon">
+                                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                            </div>
+                            <div class="feat-text">
+                                Юр. лица
+                                <small>Работаем с организациями</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats reveal r2">
+                    <div class="a-stat">
+                        <div class="a-stat-num">24/7</div>
+                        <div class="a-stat-label">Режим работы</div>
+                    </div>
+                    <div class="a-stat">
+                        <div class="a-stat-num">86</div>
+                        <div class="a-stat-label">оценок</div>
+                    </div>
+                    <div class="a-stat">
+                        <div class="a-stat-num">5.0</div>
+                        <div class="a-stat-label">рейтинг</div>
+                    </div>
+                    <div class="a-stat">
+                        <div class="a-stat-num">∞</div>
+                        <div class="a-stat-label">опыт работы</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services-bg" id="services">
+        <div class="section">
+            <div class="s-header reveal">
+                <span class="s-label">Услуги</span>
+                <h2 class="s-title">Что мы ремонтируем</h2>
+                <p class="s-desc">Ремонт любой сложности — от электронных плат до промышленных холодильных установок</p>
+            </div>
+            <div class="srv-grid">
+                <div class="srv-card reveal r1">
+                    <div class="srv-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="2"/><path d="M6 10h2M16 10h2"/></svg>
+                    </div>
+                    <h3>Ремонт плат</h3>
+                    <p>Ремонт электронных плат от бытовой техники. Качественно и недорого в своём сервисном центре на станции. Гарантия на все виды работ.</p>
+                    <div class="srv-footer">
+                        <span class="srv-price">800 ₽<small>/шт.</small></span>
+                        <span class="srv-badge">Гарантия</span>
+                    </div>
+                </div>
+
+                <div class="srv-card reveal r2">
+                    <div class="srv-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 110 8h-1"/><path d="M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                    </div>
+                    <h3>Ремонт кофемашин</h3>
+                    <p>Ремонт кофемашин любой модели и сложности: Jura, DeLonghi, Saeco, Melitta, Bosch, Bork, Nivona и другие бренды.</p>
+                    <div class="srv-footer">
+                        <span class="srv-price">1 200 ₽</span>
+                        <span class="srv-badge">Все бренды</span>
+                    </div>
+                </div>
+
+                <div class="srv-card reveal r3">
+                    <div class="srv-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/><path d="M9 14l2 2 4-4"/></svg>
+                    </div>
+                    <h3>Ремонт парогенераторов</h3>
+                    <p>Ремонт парогенераторов любой модели и сложности. Качественно и недорого в своём сервисном центре. Гарантия на все виды работ.</p>
+                    <div class="srv-footer">
+                        <span class="srv-price">800 ₽</span>
+                        <span class="srv-badge">Гарантия</span>
+                    </div>
+                </div>
+
+                <div class="srv-card reveal r1">
+                    <div class="srv-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+                    </div>
+                    <h3>Ремонт стиральных машин</h3>
+                    <p>Ремонт стиральных машин любой модели и сложности. Выезжаю во все районы. Работаю с юр. лицами. Официальная гарантия!</p>
+                    <div class="srv-footer">
+                        <span class="srv-price">1 000 ₽</span>
+                        <span class="srv-badge">Выезд</span>
+                    </div>
+                </div>
+
+                <div class="srv-card reveal r2">
+                    <div class="srv-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="12" height="20" rx="2"/><rect x="18" y="2" width="4" height="20" rx="1"/><path d="M6 6h6M6 10h6M6 14h3"/></svg>
+                    </div>
+                    <h3>Ремонт холодильников</h3>
+                    <p>Ремонт холодильников любой модели и сложности. Выезжаю во все районы. Работаю с юр. лицами. Официальная гарантия!</p>
+                    <div class="srv-footer">
+                        <span class="srv-price">1 000 ₽</span>
+                        <span class="srv-badge">Выезд</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery-bg" id="gallery">
+        <div class="section" style="max-width:1200px">
+            <div class="s-header reveal">
+                <span class="s-label">Фотографии</span>
+                <h2 class="s-title">Наши работы</h2>
+                <p class="s-desc">Результаты ремонта — качество, которое видно</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item reveal" onclick="openLightbox(0)">
+                    <img src="https://avatars.mds.yandex.net/get-altay/11022524/2a0000018e2de4e4e4eeb00f1d5a7046077b/XXXL" alt="Работа 1" loading="lazy">
+                    <div class="g-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+                </div>
+                <div class="gallery-item reveal r1" onclick="openLightbox(1)">
+                    <img src="https://avatars.mds.yandex.net/get-altay/15434262/2a0000019922d67a8d12f3ecb097bb8af502/XXXL" alt="Работа 2" loading="lazy">
+                    <div class="g-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+                </div>
+                <div class="gallery-item reveal r2" onclick="openLightbox(2)">
+                    <img src="https://avatars.mds.yandex.net/get-altay/16472720/2a0000019c80fe46445d4f800fdd23661562/XXXL" alt="Работа 3" loading="lazy">
+                    <div class="g-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+                </div>
+                <div class="gallery-item reveal r3" onclick="openLightbox(3)">
+                    <img src="https://avatars.mds.yandex.net/get-altay/16416664/2a000001998c917f1593f40669f6c3b8430d/XXXL" alt="Работа 4" loading="lazy">
+                    <div class="g-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+                </div>
+                <div class="gallery-item reveal r4" onclick="openLightbox(4)">
+                    <img src="https://avatars.mds.yandex.net/get-altay/15416268/2a000001998c9093932a2be7ae4f2483dd29/XXXL" alt="Работа 5" loading="lazy">
+                    <div class="g-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+                </div>
+                <div class="gallery-item reveal r4" onclick="openLightbox(5)">
+                    <img src="https://avatars.mds.yandex.net/get-altay/18396981/2a000001997c0287958da14121e0436d73b8/XXXL" alt="Работа 6" loading="lazy">
+                    <div class="g-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reviews-bg" id="reviews">
+        <div class="section">
+            <div class="s-header reveal">
+                <span class="s-label">Отзывы</span>
+                <h2 class="s-title">Что говорят клиенты</h2>
+            </div>
+            <div class="rev-summary reveal">
+                <div class="rev-score">
+                    <div class="rev-num">5,0</div>
+                    <div class="rev-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <div class="rev-count">86 оценок</div>
+                </div>
+                <div class="rev-divider"></div>
+                <div class="rev-bars">
+                    <div class="rev-bar-row"><span class="rev-bar-label">5 ★</span><div class="rev-bar-track"><div class="rev-bar-fill" style="width:96%"></div></div><span class="rev-bar-count">83</span></div>
+                    <div class="rev-bar-row"><span class="rev-bar-label">4 ★</span><div class="rev-bar-track"><div class="rev-bar-fill" style="width:3%"></div></div><span class="rev-bar-count">2</span></div>
+                    <div class="rev-bar-row"><span class="rev-bar-label">3 ★</span><div class="rev-bar-track"><div class="rev-bar-fill" style="width:0%"></div></div><span class="rev-bar-count">0</span></div>
+                    <div class="rev-bar-row"><span class="rev-bar-label">2 ★</span><div class="rev-bar-track"><div class="rev-bar-fill" style="width:0%"></div></div><span class="rev-bar-count">0</span></div>
+                    <div class="rev-bar-row"><span class="rev-bar-label">1 ★</span><div class="rev-bar-track"><div class="rev-bar-fill" style="width:0%"></div></div><span class="rev-bar-count">1</span></div>
+                </div>
+            </div>
+            <div class="rev-grid">
+                <div class="rev-card reveal r1">
+                    <div class="rev-h">
+                        <div class="rev-avatar" style="background:linear-gradient(135deg,#00b4d8,#0077b6)">АГ</div>
+                        <div class="rev-info">
+                            <div class="rev-name">Анна Гальцова</div>
+                            <div class="rev-level">Знаток города 4 уровня</div>
+                            <div class="rev-date">9 мая</div>
+                        </div>
+                    </div>
+                    <div class="rev-stars-s">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <div class="rev-text">
+                        Сломался холодильник. Вызвали мастера. Починил, дал подробные рекомендации. Ситуация была безвыходная, ремонт был срочно нужен. Нурбек пошёл нам на уступки, приехал поздно вечером. Все запчасти и оборудование у него было с собой! Огромная благодарность мастеру за чёткую работу! Нашёл неисправность и устранил.
+                    </div>
+                </div>
+                <div class="rev-card reveal r2">
+                    <div class="rev-h">
+                        <div class="rev-avatar" style="background:linear-gradient(135deg,#8b5cf6,#d946ef)">МС</div>
+                        <div class="rev-info">
+                            <div class="rev-name">Мария С.</div>
+                            <div class="rev-level">Знаток города 2 уровня</div>
+                            <div class="rev-date">17 марта</div>
+                        </div>
+                    </div>
+                    <div class="rev-stars-s">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <div class="rev-text">
+                        Обратились в сервис по рекомендации знакомых. Сломался робот-пылесос — всё, что собирал, всё оказывалось снова на полу. Забрали на диагностику, почистили, и он заработал как положено! Мастер всегда на связи, сообщил о результатах диагностики. Всё подробно рассказал, показал. Очень профессиональная работа!
+                    </div>
+                </div>
+                <div class="rev-card reveal r3">
+                    <div class="rev-h">
+                        <div class="rev-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">МФ</div>
+                        <div class="rev-info">
+                            <div class="rev-name">Мирэль Сафина</div>
+                            <div class="rev-level">Знаток города 5 уровня</div>
+                            <div class="rev-date">28 января</div>
+                        </div>
+                    </div>
+                    <div class="rev-stars-s">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <div class="rev-text">
+                        Больше всего меня поразило отношение Александра к клиенту. Никакого развода на деньги, никаких скрытых платежей. Назвал точную сумму заранее, сделал качественно и быстро. Буду обращаться снова!
+                    </div>
+                </div>
+                <div class="rev-card reveal r4">
+                    <div class="rev-h">
+                        <div class="rev-avatar" style="background:linear-gradient(135deg,#10b981,#3b82f6)">ЕП</div>
+                        <div class="rev-info">
+                            <div class="rev-name">Евгений Половнев</div>
+                            <div class="rev-level">Знаток города 2 уровня</div>
+                            <div class="rev-date">9 февраля</div>
+                        </div>
+                    </div>
+                    <div class="rev-stars-s">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <div class="rev-text">
+                        Попал в сложную ситуацию с холодильником, Александр пришёл буквально через пару часов после звонка. Проверил всю систему, определил проблему и мгновенно устранил дефект. Качественно и эффективно.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-bg" id="contact">
+        <div class="section">
+            <div class="s-header reveal">
+                <span class="s-label">Контакты</span>
+                <h2 class="s-title">Свяжитесь с нами</h2>
+                <p class="s-desc">Работаем круглосуточно — звоните в любое время</p>
+            </div>
+            <div class="contact-grid">
+                <div class="c-card reveal r1">
+                    <div class="c-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <h3>Адрес</h3>
+                    <p>Привокзальная площадь, 1А<br>Одинцово</p>
+                </div>
+                <div class="c-card reveal r2">
+                    <div class="c-icon">
+                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.11 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                    </div>
+                    <h3>Телефон</h3>
+                    <p style="margin-bottom:.8rem">Звоните круглосуточно</p>
+                    <a href="tel:+79683780238" style="font-size:1.2rem">+7 (968) 378-02-38</a>
+                </div>
+                <div class="c-card reveal r3">
+                    <div class="c-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3>Время работы</h3>
+                    <div id="schedStatus" class="sched-status open"><span class="s-dot"></span> Круглосуточно</div>
+                    <table class="sched-table" id="schedTable">
+                        <tr data-day="1"><td>Понедельник</td><td>Круглосуточно</td></tr>
+                        <tr data-day="2"><td>Вторник</td><td>Круглосуточно</td></tr>
+                        <tr data-day="3"><td>Среда</td><td>Круглосуточно</td></tr>
+                        <tr data-day="4"><td>Четверг</td><td>Круглосуточно</td></tr>
+                        <tr data-day="5"><td>Пятница</td><td>Круглосуточно</td></tr>
+                        <tr data-day="6"><td>Суббота</td><td>Круглосуточно</td></tr>
+                        <tr data-day="0"><td>Воскресенье</td><td>Круглосуточно</td></tr>
+                    </table>
+                </div>
+                <div class="c-card reveal r4">
+                    <div class="c-icon">
+                        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3>Гарантия</h3>
+                    <p>Даём официальную гарантию на все виды работ. Работаем с юридическими лицами. Выезд во все районы Одинцово и МО.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-bg"></div>
+        <div class="cta-c reveal">
+            <h2 class="cta-title">Сломалась техника? <span style="color:var(--accent)">Починим!</span></h2>
+            <p class="cta-desc">Выезд мастера в день обращения. Ремонт на дому или в сервисном центре. Звоните — работаем 24/7.</p>
+            <div class="hero-btns">
+                <a href="tel:+79683780238" class="btn btn-p">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.11 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                    +7 (968) 378-02-38
+                </a>
+                <a href="#services" class="btn btn-o">Посмотреть услуги</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-logo">Холодильники <em>-30°С</em></div>
+            <div class="footer-copy">© 2026 Холодильники -30°С. Одинцово, Привокзальная площадь, 1А</div>
+            <div class="footer-links">
+                <a href="#about">О нас</a>
+                <a href="#services">Услуги</a>
+                <a href="#reviews">Отзывы</a>
+                <a href="#contact">Контакты</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lb-close" onclick="closeLightbox()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+        <img id="lightboxImg" src="" alt="">
+    </div>
+
+    <script>
+        var nav=document.getElementById('nav');
+        window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60)});
+
+        var burger=document.getElementById('burger');
+        var mobileMenu=document.getElementById('mobileMenu');
+        burger.addEventListener('click',function(){burger.classList.toggle('active');mobileMenu.classList.toggle('active');document.body.style.overflow=mobileMenu.classList.contains('active')?'hidden':''});
+        function closeMobile(){burger.classList.remove('active');mobileMenu.classList.remove('active');document.body.style.overflow=''}
+
+        var revealObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+        document.querySelectorAll('.reveal').forEach(function(el){revealObserver.observe(el)});
+
+        var galleryImages=[
+            'https://avatars.mds.yandex.net/get-altay/11022524/2a0000018e2de4e4e4eeb00f1d5a7046077b/XXXL',
+            'https://avatars.mds.yandex.net/get-altay/15434262/2a0000019922d67a8d12f3ecb097bb8af502/XXXL',
+            'https://avatars.mds.yandex.net/get-altay/16472720/2a0000019c80fe46445d4f800fdd23661562/XXXL',
+            'https://avatars.mds.yandex.net/get-altay/16416664/2a000001998c917f1593f40669f6c3b8430d/XXXL',
+            'https://avatars.mds.yandex.net/get-altay/15416268/2a000001998c9093932a2be7ae4f2483dd29/XXXL',
+            'https://avatars.mds.yandex.net/get-altay/18396981/2a000001997c0287958da14121e0436d73b8/XXXL'
+        ];
+        function openLightbox(i){var lb=document.getElementById('lightbox');document.getElementById('lightboxImg').src=galleryImages[i];lb.classList.add('active');document.body.style.overflow='hidden'}
+        function closeLightbox(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow=''}
+        document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox()});
+
+        (function(){
+            var now=new Date();
+            var cd=now.getDay();
+            document.querySelectorAll('#schedTable tr').forEach(function(r){if(parseInt(r.getAttribute('data-day'))===cd)r.classList.add('today')});
+            var s=document.getElementById('schedStatus');
+            s.className='sched-status open';
+            s.innerHTML='<span class="s-dot"></span> Круглосуточно';
+        })();
+
+        document.querySelectorAll('a[href^="#"]').forEach(function(a){
+            a.addEventListener('click',function(e){
+                var t=document.querySelector(this.getAttribute('href'));
+                if(t){e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-70,behavior:'smooth'})}
+            })
+        });
+    </script>
+</body>
+</html>
